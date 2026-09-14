@@ -65,30 +65,26 @@ the last two weeks.
 
 ## Deploying to Cloudflare
 
-Cloudflare now creates Git-connected projects as **Workers** (with static assets), not
-Pages. Either works for this site; the repo is set up for Workers.
+Live as a **Cloudflare Pages** project connected to this repo (Workers & Pages →
+Create → **Pages** → Import a repository → `stanggt325/alabama-section`):
 
-`wrangler.jsonc` tells wrangler to upload `dist/` as static assets, with no Worker
-script and no Astro adapter. **Do not remove it**: without it, `wrangler deploy`
-auto-configures the project by running `astro add cloudflare`, which installs an
-adapter that is incompatible with Astro 7 and fails the build.
-
-Workers & Pages → Create → Workers → Import a repository → `stanggt325/alabama-section`:
-
+- Framework preset: Astro
 - Build command: `npm run build`
-- Deploy command: `npx wrangler deploy`
-- Non-production branches: `npx wrangler versions upload` (preview URLs per PR)
+- Build output directory: `dist`
+- Production branch: `main`; every PR gets a preview URL
 
-`wrangler` is pinned in `devDependencies` so the deploy step uses a known version
-instead of whatever `npx` downloads that day.
-
-Custom domain: the Worker's Settings → Domains & Routes → add the domain. Cloudflare
-handles DNS and TLS if the zone is on Cloudflare (alstateuspsa.com already is).
-Then set `site` in `astro.config.mjs` to the real domain so canonical URLs are right.
+Custom domain: Pages project → Custom domains → add the domain. Cloudflare handles
+DNS and TLS if the zone is on Cloudflare (alstateuspsa.com already is). Then set
+`site` in `astro.config.mjs` to the real domain so canonical URLs are right.
 
 `public/_headers` sets security headers; `public/_redirects` maps old
-`uspsaalabamasection.org` paths if that domain is ever pointed here. Both are honored
-by Workers static assets.
+`uspsaalabamasection.org` paths if that domain is ever pointed here.
+
+**Trap:** Cloudflare's "Create" flow defaults to a *Worker*, not Pages. A Worker
+project runs `npx wrangler deploy`, and without a wrangler config that auto-installs
+`@astrojs/cloudflare`, which does not build against Astro 7. `wrangler.jsonc` is kept
+in the repo so that path works too (static assets from `dist/`, no adapter); Pages
+ignores the file because it has no `pages_build_output_dir`.
 
 Known `npm audit` finding: `wrangler` → `miniflare` → `sharp` (libheif). Dev-only,
 local image decoding in miniflare, which this project never runs. Clears when
