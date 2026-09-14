@@ -1,0 +1,28 @@
+Copy this file to YYYY-MM-DD-slug.md (drop the .txt) and fill it in.
+
+---
+title: Executive Committee annual meeting, [date]
+date: 2027-04-01
+category: meeting
+summary: The Alabama Section Executive Committee will meet on [date] at [location]. Club presidents or their designated representatives are expected to attend.
+pinnedUntil: 2027-05-01
+---
+
+Per the Alabama Section bylaws (Art. 6), the Executive Committee meets at least once a year, during or immediately after the Section Championship.
+
+**When:** [date, time]
+**Where:** [location]
+**Quorum:** a majority of committee members (Art. 6.B)
+
+**Agenda**
+
+1. Roll call of member clubs
+2. Section Coordinator report
+3. Annual accounting of Section funds (Policy §5.3; Bylaws Art. 7.E)
+4. Section Championship: host club and dates for next year (Art. 10.A)
+5. Nationals slot distribution (Art. 11)
+6. Bylaws amendments, if any
+7. Club business
+8. Election of Section Coordinator (if an election year)
+
+Minutes will be posted at /governance/meetings/ after the meeting.

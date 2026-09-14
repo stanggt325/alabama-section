@@ -1,0 +1,96 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import NoticeCard from '../components/NoticeCard.astro';
+import EventRow from '../components/EventRow.astro';
+import { SITE, CHAMPIONSHIP_HISTORY } from '../data/site';
+import { isUpcoming } from '../lib/dates';
+
+const now = new Date();
+const notices = (await getCollection('notices'))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const pinned = notices.filter((n) => n.data.pinnedUntil && n.data.pinnedUntil >= now);
+const latest = (pinned.length ? pinned : notices).slice(0, 3);
+
+const events = (await getCollection('events'))
+  .filter((e) => isUpcoming(e.data.end ?? e.data.start, now))
+  .sort((a, b) => a.data.start.getTime() - b.data.start.getTime())
+  .slice(0, 5);
+
+const clubs = await getCollection('clubs');
+const nextChampionship = CHAMPIONSHIP_HISTORY.find((c) => c.year >= now.getFullYear() && c.host && c.host !== 'TBD');
+---
+<Base title={SITE.name}>
+  <section class="hero">
+    <div class="container">
+      <span class="eyebrow">USPSA Area 6 &middot; State of Alabama</span>
+      <h1>USPSA Alabama Section</h1>
+      <p class="lede">{SITE.tagline} {clubs.length} affiliated clubs, one Section Championship a year, and the Nationals slots that come with it.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="/clubs/">Find a club near you</a>
+        <a class="btn btn-ghost" href="/championship/">Section Championship</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Section notices</h2>
+        <a class="more" href="/notices/">All notices &rarr;</a>
+      </div>
+      <div class="grid grid-3">
+        {latest.map((n) => <NoticeCard notice={n} />)}
+      </div>
+    </div>
+  </section>
+
+  {nextChampionship && (
+    <section class="section">
+      <div class="container">
+        <span class="eyebrow">Next up</span>
+        <h2>{nextChampionship.year} Alabama State Championship</h2>
+        <p>Hosted by {nextChampionship.host} in {nextChampionship.location}{nextChampionship.dates ? `, ${nextChampionship.dates}` : ''}. Section Champion titles in every recognized division, and Nationals slots distributed per the Section bylaws.</p>
+        <a class="btn btn-outline" href="/championship/">Championship details</a>
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>Calendar</h2>
+        <a class="more" href="/calendar/">Full calendar &rarr;</a>
+      </div>
+      {events.length ? (
+        <div class="table-wrap">
+          <table class="data">
+            <thead><tr><th>Date</th><th>Event</th><th>Where</th><th>Type</th></tr></thead>
+            <tbody>{events.map((e) => <EventRow event={e} />)}</tbody>
+          </table>
+        </div>
+      ) : (
+        <p>No Section events scheduled. Club monthly matches are on <a href="https://practiscore.com" rel="noopener" target="_blank">PractiScore</a>.</p>
+      )}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid grid-3">
+        <div class="card">
+          <h3><a href="/nationals-slots/">Nationals slots</a></h3>
+          <p>How the Section earns USPSA Nationals slots and how they are distributed to Alabama shooters.</p>
+        </div>
+        <div class="card">
+          <h3><a href="/governance/">Governance</a></h3>
+          <p>The Executive Committee, current bylaws, meeting minutes, and the election schedule.</p>
+        </div>
+        <div class="card">
+          <h3><a href="/resources/">New to USPSA?</a></h3>
+          <p>What to bring to your first match, how classification works, and how to become a Range Officer.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

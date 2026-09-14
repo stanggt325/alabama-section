@@ -1,0 +1,26 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { fmtDate } from '../../lib/dates';
+
+export async function getStaticPaths() {
+  const notices = await getCollection('notices');
+  return notices.map((notice) => ({ params: { id: notice.id }, props: { notice } }));
+}
+const { notice } = Astro.props;
+const { Content } = await render(notice);
+const { title, date, category, summary } = notice.data;
+---
+<Base title={title} description={summary}>
+  <div class="container">
+    <div class="page-head">
+      <p class="meta"><a href="/notices/">&larr; All notices</a></p>
+      <span class={`badge badge-${category}`}>{category.replace('-', ' ')}</span>
+      <h1 style="text-transform:none">{title}</h1>
+      <p class="lede"><time datetime={date.toISOString()}>{fmtDate(date)}</time></p>
+    </div>
+    <article class="prose">
+      <Content />
+    </article>
+  </div>
+</Base>

@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { fmtDate, fmtRange } from '../lib/dates';
+
+interface Props { event: CollectionEntry<'events'> }
+const { event } = Astro.props;
+const { title, start, end, kind, location, host, url } = event.data;
+const LABEL: Record<string, string> = {
+  championship: 'Section Championship',
+  major: 'Major match',
+  meeting: 'Meeting',
+  election: 'Election',
+  seminar: 'NROI seminar',
+  deadline: 'Deadline',
+};
+---
+<tr>
+  <td><time datetime={start.toISOString()}>{end ? fmtRange(start, end) : fmtDate(start)}</time></td>
+  <td>
+    {url ? <a href={url} rel="noopener" target="_blank">{title}</a> : title}
+    {host && <div class="meta">{host}</div>}
+  </td>
+  <td>{location ?? ''}</td>
+  <td><span class={`badge badge-${kind === 'election' ? 'election' : kind === 'meeting' ? 'meeting' : 'championship'}`}>{LABEL[kind]}</span></td>
+</tr>

@@ -1,0 +1,110 @@
+---
+import '../styles/global.css';
+import { SITE, USPSA_LINKS } from '../data/site';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = SITE.tagline } = Astro.props;
+const fullTitle = title === SITE.name ? title : `${title} | ${SITE.shortName}`;
+const path = Astro.url.pathname;
+
+const NAV = [
+  { href: '/notices/', label: 'Notices' },
+  { href: '/clubs/', label: 'Clubs' },
+  { href: '/calendar/', label: 'Calendar' },
+  { href: '/championship/', label: 'Championship' },
+  { href: '/nationals-slots/', label: 'Nationals Slots' },
+  { href: '/governance/', label: 'Governance' },
+  { href: '/resources/', label: 'Resources' },
+  { href: '/contact/', label: 'Contact' },
+];
+const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(path, Astro.site)} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+  </head>
+  <body>
+    <a class="visually-hidden" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="container bar">
+        <a class="brand" href="/">
+          <span class="mark" aria-hidden="true">AL</span>
+          <span>
+            <span class="name">{SITE.shortName}</span>
+            <span class="sub">USPSA {SITE.area}</span>
+          </span>
+        </a>
+        <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+        <nav class="nav" id="site-nav" aria-label="Primary">
+          <ul>
+            {NAV.map((item) => (
+              <li><a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a></li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <div class="cols">
+          <div>
+            <h4>{SITE.name}</h4>
+            <p>{SITE.tagline}</p>
+            <p><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+          </div>
+          <div>
+            <h4>Section</h4>
+            <ul>
+              <li><a href="/notices/">Notices</a></li>
+              <li><a href="/clubs/">Member clubs</a></li>
+              <li><a href="/championship/">Section Championship</a></li>
+              <li><a href="/nationals-slots/">Nationals slots</a></li>
+              <li><a href="/governance/bylaws/">Bylaws</a></li>
+              <li><a href="/governance/meetings/">Meetings &amp; minutes</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>USPSA</h4>
+            <ul>
+              {USPSA_LINKS.slice(0, 5).map((l) => (
+                <li><a href={l.url} rel="noopener" target="_blank">{l.label}</a></li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div class="legal">
+          <p>&copy; {new Date().getFullYear()} USPSA Alabama Section. USPSA and the USPSA logo are trademarks of the United States Practical Shooting Association. This site is maintained by the Alabama Section and is not an official publication of USPSA, Inc.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const btn = document.querySelector('.nav-toggle');
+      const nav = document.getElementById('site-nav');
+      btn?.addEventListener('click', () => {
+        const open = nav?.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(!!open));
+      });
+    </script>
+  </body>
+</html>

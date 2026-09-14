@@ -1,0 +1,76 @@
+---
+import Base from '../layouts/Base.astro';
+import { CHAMPIONSHIP_HISTORY } from '../data/site';
+
+const year = new Date().getFullYear();
+const current = CHAMPIONSHIP_HISTORY.find((c) => c.year === year);
+const next = CHAMPIONSHIP_HISTORY.find((c) => c.year === year + 1);
+---
+<Base title="Section Championship" description="The annual Alabama State USPSA Championship: current match, host club, and results back to 2010.">
+  <div class="container">
+    <div class="page-head">
+      <span class="eyebrow">Level II &middot; Annual</span>
+      <h1>Alabama State Championship</h1>
+      <p class="lede">One member club hosts the Section Championship each year, chosen by vote of the Executive Committee. Division winners who are Alabama residents earn Section Champion titles, and Nationals slots are distributed by placement here (Bylaws Art. 10 and 11).</p>
+    </div>
+
+    <div class="grid grid-2">
+      {current && (
+        <div class="card">
+          <span class="eyebrow">{current.year}</span>
+          <h3>{current.host || 'Host TBD'}</h3>
+          <p>{current.location}{current.dates ? ` · ${current.dates}` : ''}</p>
+          <p>
+            {current.matchbook && <a class="btn btn-primary" href={current.matchbook} rel="noopener" target="_blank">Match book &amp; stages</a>}
+            {current.results && <> <a class="btn btn-outline" href={current.results} rel="noopener" target="_blank">Results</a></>}
+          </p>
+        </div>
+      )}
+      {next && next.host && next.host !== 'TBD' && (
+        <div class="card">
+          <span class="eyebrow">{next.year}</span>
+          <h3>{next.host}</h3>
+          <p>{next.location}{next.dates ? ` · ${next.dates}` : ''}</p>
+          <p>Registration opens on PractiScore. Watch <a href="/notices/">Section notices</a>.</p>
+        </div>
+      )}
+    </div>
+
+    <section class="section">
+      <h2>How the Championship works</h2>
+      <div class="prose">
+        <ul>
+          <li><strong>Host.</strong> One member club hosts, with help from the others. The Executive Committee picks the host and the Match Director, approves championship policies, and sets the terms between the Section and the host club (Art. 10.A.1).</li>
+          <li><strong>Date.</strong> Set to avoid conflicts with other major matches in Area 6, and billed as a USPSA Section Championship under USPSA rules.</li>
+          <li><strong>Titles.</strong> The top finisher in each recognized division earns the Section Champion title, restricted to Alabama residents who are USPSA members in good standing (Art. 3.B, 10.A.4). Non-residents remain eligible for High Overall awards.</li>
+          <li><strong>Proceeds.</strong> Retained by the host club after activity fees and expenses, with a portion returned to shooters as prizes (Art. 10.A.3). Trophies and plaques are the host's responsibility (10.A.2).</li>
+          <li><strong>Nationals slots.</strong> Distributed by placement at this match. See <a href="/nationals-slots/">Nationals slots</a>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Results archive</h2>
+      <p>Links for 2010 through 2015 point at archived copies of the previous Section website. <span class="todo">TODO</span> fill in host, dates, and results for years marked blank.</p>
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>Year</th><th>Host</th><th>Location</th><th>Dates</th><th>Links</th></tr></thead>
+          <tbody>
+            {CHAMPIONSHIP_HISTORY.map((c) => (
+              <tr>
+                <td>{c.year}</td>
+                <td>{c.host || '—'}</td>
+                <td>{c.location || '—'}</td>
+                <td>{c.dates || '—'}</td>
+                <td>
+                  {c.results ? <a href={c.results} rel="noopener" target="_blank">Results</a> : '—'}
+                  {c.matchbook && <> &middot; <a href={c.matchbook} rel="noopener" target="_blank">Match book</a></>}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</Base>

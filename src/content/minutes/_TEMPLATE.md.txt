@@ -1,0 +1,32 @@
+Copy this file to YYYY-MM-DD.md (drop the .txt) and fill it in. Attach the signed PDF under public/docs/minutes/ and reference it in `pdf:`.
+
+---
+title: Executive Committee annual meeting
+date: 2027-04-30
+kind: annual
+location: Talladega Marksmanship Park
+quorum: true
+pdf: /docs/minutes/2027-04-30.pdf
+---
+
+**Present:** [Section Coordinator], [club representatives by club]
+**Absent:** [clubs]
+
+## Reports
+
+- Section Coordinator report: ...
+- Financial accounting: balance $X on [date]; income $Y; expenses $Z. [Link to statement]
+
+## Business
+
+1. ...
+
+## Motions
+
+| Motion | Moved / seconded | Result |
+|---|---|---|
+| ... | ... | Passed 8-0 |
+
+## Next meeting
+
+[date, location]

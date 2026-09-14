@@ -1,0 +1,53 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import GovNav from '../../../components/GovNav.astro';
+import { fmtDate } from '../../../lib/dates';
+
+const minutes = (await getCollection('minutes')).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const upcoming = (await getCollection('events'))
+  .filter((e) => e.data.kind === 'meeting' && e.data.start >= new Date())
+  .sort((a, b) => a.data.start.getTime() - b.data.start.getTime());
+---
+<Base title="Meetings & minutes" description="Alabama Section Executive Committee meeting schedule and minutes.">
+  <div class="container">
+    <div class="page-head">
+      <h1>Meetings &amp; minutes</h1>
+      <p class="lede">The Executive Committee meets at least once a year, during or immediately after the Section Championship (Bylaws Art. 6). Special meetings may be called by the Section Coordinator or any two committee members and may be held electronically.</p>
+    </div>
+    <GovNav />
+
+    <section class="section" style="padding-top:0">
+      <h2>Next meeting</h2>
+      {upcoming.length ? (
+        <ul>
+          {upcoming.map((e) => <li><strong>{fmtDate(e.data.start)}</strong> — {e.data.title}{e.data.location ? `, ${e.data.location}` : ''}</li>)}
+        </ul>
+      ) : <p>No meeting scheduled. Meeting notices are posted under <a href="/notices/">Notices</a>.</p>}
+    </section>
+
+    <section class="section">
+      <h2>Minutes</h2>
+      {minutes.length ? (
+        <div class="table-wrap">
+          <table class="data">
+            <thead><tr><th>Date</th><th>Meeting</th><th>Type</th><th>Quorum</th><th></th></tr></thead>
+            <tbody>
+              {minutes.map((m) => (
+                <tr>
+                  <td>{fmtDate(m.data.date)}</td>
+                  <td><a href={`/governance/meetings/${m.id}/`}>{m.data.title}</a></td>
+                  <td>{m.data.kind}</td>
+                  <td>{m.data.quorum === undefined ? '—' : m.data.quorum ? 'Yes' : 'No'}</td>
+                  <td>{m.data.pdf && <a href={m.data.pdf}>PDF</a>}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ) : (
+        <p>No minutes posted yet. Minutes from each Executive Committee meeting will be posted here within 30 days of the meeting.</p>
+      )}
+    </section>
+  </div>
+</Base>

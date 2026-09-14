@@ -1,0 +1,30 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import NoticeCard from '../../components/NoticeCard.astro';
+
+const notices = (await getCollection('notices'))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+const byYear = new Map<number, typeof notices>();
+for (const n of notices) {
+  const y = n.data.date.getUTCFullYear();
+  byYear.set(y, [...(byYear.get(y) ?? []), n]);
+}
+---
+<Base title="Notices" description="Official notifications from the USPSA Alabama Section: elections, meetings, bylaws, Nationals slots, and club changes.">
+  <div class="container">
+    <div class="page-head">
+      <h1>Section notices</h1>
+      <p class="lede">Official notifications from the Alabama Section. Anything the Section is required to tell its clubs and members is posted here: Executive Committee meetings, Section Coordinator elections, bylaws amendments, Nationals slot distribution, and club affiliation changes.</p>
+    </div>
+
+    {[...byYear.entries()].map(([year, list]) => (
+      <section class="section" style="padding-top:0">
+        <h2>{year}</h2>
+        <div class="grid grid-2">
+          {list.map((n) => <NoticeCard notice={n} />)}
+        </div>
+      </section>
+    ))}
+  </div>
+</Base>

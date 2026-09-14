@@ -1,0 +1,34 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE, AREA_DIRECTOR } from '../data/site';
+---
+<Base title="Contact" description="Contact the USPSA Alabama Section Coordinator.">
+  <div class="container">
+    <div class="page-head">
+      <h1>Contact</h1>
+      <p class="lede">Questions about the Section, a club listing, Nationals slots, or affiliating a new club go to the Section Coordinator.</p>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Section Coordinator</h3>
+        <p><span class="todo">TODO</span> name</p>
+        <p><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+      </div>
+      <div class="card">
+        <h3>{AREA_DIRECTOR.title}</h3>
+        <p>{AREA_DIRECTOR.name}</p>
+        <p><a href={AREA_DIRECTOR.url} rel="noopener" target="_blank">Contact via uspsa.org/area6</a></p>
+      </div>
+    </div>
+
+    <section class="section">
+      <div class="prose">
+        <h2>Match or rules questions</h2>
+        <p>For a specific match, contact the host club directly (see the <a href="/clubs/">club directory</a>). For USPSA rules interpretations, the Section Coordinator has jurisdiction within the Section (Bylaws Art. 7.A); anything beyond that goes to NROI.</p>
+        <h2>Membership and classification</h2>
+        <p>Membership, classifier scores, and account questions are handled by USPSA headquarters, not the Section: <a href="https://uspsa.org/contact" rel="noopener" target="_blank">uspsa.org/contact</a>.</p>
+      </div>
+    </section>
+  </div>
+</Base>

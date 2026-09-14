@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import EventRow from '../components/EventRow.astro';
+import { isUpcoming } from '../lib/dates';
+
+const now = new Date();
+const all = (await getCollection('events')).sort((a, b) => a.data.start.getTime() - b.data.start.getTime());
+const upcoming = all.filter((e) => isUpcoming(e.data.end ?? e.data.start, now));
+const past = all.filter((e) => !isUpcoming(e.data.end ?? e.data.start, now)).reverse();
+---
+<Base title="Calendar" description="Section-level USPSA events in Alabama: the Section Championship, Executive Committee meetings, elections, deadlines, and NROI seminars.">
+  <div class="container">
+    <div class="page-head">
+      <h1>Section calendar</h1>
+      <p class="lede">Section-level dates only. Club monthly matches are registered and scored on PractiScore; check the <a href="/clubs/">club directory</a> for each club's page. Area 6 and national major matches are on <a href="https://uspsa.org/area6" rel="noopener" target="_blank">uspsa.org</a>.</p>
+    </div>
+
+    <section class="section" style="padding-top:0">
+      <h2>Upcoming</h2>
+      {upcoming.length ? (
+        <div class="table-wrap">
+          <table class="data">
+            <thead><tr><th>Date</th><th>Event</th><th>Where</th><th>Type</th></tr></thead>
+            <tbody>{upcoming.map((e) => <EventRow event={e} />)}</tbody>
+          </table>
+        </div>
+      ) : <p>Nothing scheduled.</p>}
+    </section>
+
+    <section class="section">
+      <h2>Standing dates</h2>
+      <p>From the Section bylaws and USPSA policy. These recur every year whether or not they appear above.</p>
+      <div class="table-wrap">
+        <table class="data">
+          <thead><tr><th>When</th><th>What</th><th>Authority</th></tr></thead>
+          <tbody>
+            <tr><td>Before Jan 30</td><td>Section club fee ($20 per member club) due to the Section</td><td>Bylaws Art. 7.E</td></tr>
+            <tr><td>Within 30 days of every match</td><td>Clubs send results and activity fees to USPSA</td><td>USPSA Bylaws §3.05(d); Policy §4.1(d)</td></tr>
+            <tr><td>Spring (with the Championship)</td><td>Executive Committee annual meeting; annual accounting of Section funds</td><td>Bylaws Art. 6; Policy §5.3</td></tr>
+            <tr><td>Before Mar 31, at least every 2 years</td><td>Section Coordinator election (term 1 Apr - 31 Mar)</td><td>Bylaws Art. 7.D; Policy §3.1</td></tr>
+            <tr><td>At each election, and after any amendment</td><td>Current bylaws sent to the Area Director and USPSA national office</td><td>Policy §2.6</td></tr>
+            <tr><td>Annually</td><td>Section Coordinator visits each club during a match</td><td>Policy §4.1(f)</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    {past.length > 0 && (
+      <section class="section">
+        <h2>Past</h2>
+        <div class="table-wrap">
+          <table class="data">
+            <thead><tr><th>Date</th><th>Event</th><th>Where</th><th>Type</th></tr></thead>
+            <tbody>{past.map((e) => <EventRow event={e} />)}</tbody>
+          </table>
+        </div>
+      </section>
+    )}
+  </div>
+</Base>

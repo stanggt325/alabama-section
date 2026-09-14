@@ -1,0 +1,13 @@
+---
+const path = Astro.url.pathname;
+const items = [
+  { href: '/governance/', label: 'Executive Committee' },
+  { href: '/governance/bylaws/', label: 'Bylaws' },
+  { href: '/governance/meetings/', label: 'Meetings & minutes' },
+  { href: '/governance/elections/', label: 'Elections' },
+  { href: '/governance/finances/', label: 'Finances' },
+];
+---
+<ul class="subnav">
+  {items.map((i) => <li><a href={i.href} aria-current={path === i.href ? 'page' : undefined}>{i.label}</a></li>)}
+</ul>

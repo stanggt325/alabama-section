@@ -1,0 +1,43 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import ClubCard from '../../components/ClubCard.astro';
+
+const REGIONS = ['North', 'Central', 'East', 'South', 'Gulf Coast'] as const;
+const clubs = (await getCollection('clubs')).filter((c) => c.data.active);
+---
+<Base title="Member clubs" description="USPSA-affiliated clubs in the Alabama Section, by region.">
+  <div class="container">
+    <div class="page-head">
+      <h1>Member clubs</h1>
+      <p class="lede">{clubs.length} USPSA-affiliated clubs make up the Alabama Section. Monthly match registration and results are on each club's PractiScore page. Shoot at any of them; a USPSA membership is not required for your first match.</p>
+    </div>
+
+    <ul class="subnav">
+      {REGIONS.map((r) => <li><a href={`#${r.toLowerCase().replace(' ', '-')}`}>{r}</a></li>)}
+    </ul>
+
+    <div class="callout">
+      <p><strong>Club officers:</strong> each listing has a <span class="todo">TODO</span> for match schedule and contact details. Send corrections to the <a href="/contact/">Section Coordinator</a>. Affiliation changes are recommended to the Area Director by the Section Coordinator (USPSA Section Policy §4.1(e)).</p>
+    </div>
+
+    {REGIONS.map((region) => {
+      const list = clubs.filter((c) => c.data.region === region).sort((a, b) => a.data.name.localeCompare(b.data.name));
+      if (!list.length) return null;
+      return (
+        <section class="section" id={region.toLowerCase().replace(' ', '-')} style="padding-top:1rem">
+          <h2>{region} Alabama</h2>
+          <div class="grid grid-2">
+            {list.map((club) => <ClubCard club={club} />)}
+          </div>
+        </section>
+      );
+    })}
+
+    <section class="section">
+      <h2>Starting a club</h2>
+      <p>The Section Coordinator's job includes helping new clubs form and affiliate (USPSA Section Policy §4.1(g)). A USPSA club needs ten or more individual USPSA members, a formal application, a minimum number of sanctioned matches a year, results and activity fees sent to USPSA within 30 days of each match, and annual affiliation dues (USPSA Bylaws §3.05). Once affiliated, a club applies to the Section; the Executive Committee votes on it and checks that proposed match dates do not conflict with nearby clubs (Section Bylaws Art. 3).</p>
+      <a class="btn btn-outline" href="/contact/">Talk to the Section Coordinator</a>
+    </section>
+  </div>
+</Base>

@@ -1,0 +1,23 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../../layouts/Base.astro';
+import { fmtDate } from '../../../lib/dates';
+
+export async function getStaticPaths() {
+  const minutes = await getCollection('minutes');
+  return minutes.map((m) => ({ params: { id: m.id }, props: { m } }));
+}
+const { m } = Astro.props;
+const { Content } = await render(m);
+---
+<Base title={`${m.data.title}, ${fmtDate(m.data.date)}`} description={`Minutes of the Alabama Section Executive Committee, ${fmtDate(m.data.date)}.`}>
+  <div class="container">
+    <div class="page-head">
+      <p class="meta"><a href="/governance/meetings/">&larr; All minutes</a></p>
+      <span class="eyebrow">{m.data.kind} meeting</span>
+      <h1 style="text-transform:none">{m.data.title}</h1>
+      <p class="lede">{fmtDate(m.data.date)}{m.data.location ? ` · ${m.data.location}` : ''}{m.data.pdf && <> · <a href={m.data.pdf}>Signed PDF</a></>}</p>
+    </div>
+    <article class="prose"><Content /></article>
+  </div>
+</Base>

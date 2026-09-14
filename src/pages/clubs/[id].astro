@@ -1,0 +1,47 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+
+export async function getStaticPaths() {
+  const clubs = await getCollection('clubs');
+  return clubs.map((club) => ({ params: { id: club.id }, props: { club } }));
+}
+const { club } = Astro.props;
+const { Content } = await render(club);
+const d = club.data;
+---
+<Base title={d.name} description={`${d.name} (${d.uspsaId}), a USPSA club in ${d.city}, Alabama.`}>
+  <div class="container">
+    <div class="page-head">
+      <p class="meta"><a href="/clubs/">&larr; All clubs</a></p>
+      <span class="eyebrow">{d.uspsaId} &middot; {d.region} Alabama</span>
+      <h1 style="text-transform:none">{d.name}</h1>
+      <p class="lede">{d.city}, AL</p>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Details</h3>
+        <dl class="kv">
+          <dt>USPSA club ID</dt><dd>{d.uspsaId}</dd>
+          <dt>Matches</dt><dd>{d.schedule ?? <span class="todo">TODO</span>}</dd>
+          <dt>Address</dt><dd>{d.address ? (d.mapUrl ? <a href={d.mapUrl} rel="noopener" target="_blank">{d.address}</a> : d.address) : <span class="todo">TODO</span>}</dd>
+          <dt>Contact</dt><dd>{d.contact ?? <span class="todo">TODO</span>}</dd>
+        </dl>
+      </div>
+      <div class="card">
+        <h3>Links</h3>
+        <ul>
+          {d.website && <li><a href={d.website} rel="noopener" target="_blank">Club website</a></li>}
+          {d.practiscore && <li><a href={d.practiscore} rel="noopener" target="_blank">PractiScore (registration &amp; results)</a></li>}
+          {d.facebook && <li><a href={d.facebook} rel="noopener" target="_blank">Facebook</a></li>}
+          <li><a href={`https://uspsa.org/clubs`} rel="noopener" target="_blank">USPSA club listing</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <article class="prose" style="margin-top:1.5rem">
+      <Content />
+    </article>
+  </div>
+</Base>

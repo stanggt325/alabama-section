@@ -1,0 +1,25 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { fmtDate } from '../lib/dates';
+
+interface Props { notice: CollectionEntry<'notices'> }
+const { notice } = Astro.props;
+const { title, date, category, summary } = notice.data;
+const LABEL: Record<string, string> = {
+  election: 'Election',
+  meeting: 'Meeting',
+  bylaws: 'Bylaws',
+  'nationals-slots': 'Nationals slots',
+  championship: 'Championship',
+  clubs: 'Clubs',
+  general: 'Notice',
+};
+---
+<article class="card">
+  <div class="meta">
+    <span class={`badge badge-${category}`}>{LABEL[category]}</span>
+    <time datetime={date.toISOString()}>{fmtDate(date)}</time>
+  </div>
+  <h3><a href={`/notices/${notice.id}/`}>{title}</a></h3>
+  <p>{summary}</p>
+</article>

@@ -1,0 +1,19 @@
+Copy this file to YYYY-MM-DD-slug.md (drop the .txt) and fill it in.
+
+---
+title: Notice of Section Coordinator election
+date: 2027-01-15
+category: election
+summary: The Alabama Section will elect a Section Coordinator at the annual Executive Committee meeting on [date]. Nominations are open until [date].
+pinnedUntil: 2027-03-31
+---
+
+Per USPSA's Section Operations and Governance Policy §3.1, Sections must elect a Section Coordinator at least every two years. Per the Alabama Section bylaws (Art. 7.D) the term runs 1 April to 31 March and the vote is one per member club.
+
+**When:** [date, time]
+**Where:** [location, or "by electronic means" per Art. 6.C]
+**Who votes:** the president of each member club, or their designated representative (Art. 8)
+
+**Nominations.** Send nominations to the Section Coordinator at [email] by [date]. Candidates must hold current USPSA membership and an NROI Range Officer (Level I) or higher certification (Policy §3.2).
+
+**Bylaws.** The Section must provide current bylaws to the Area Director and the national office at the time of each election (Policy §2.6(b)). The current bylaws are at /governance/bylaws/.

@@ -1,0 +1,52 @@
+---
+import Base from '../layouts/Base.astro';
+import { USPSA_LINKS } from '../data/site';
+---
+<Base title="Resources" description="New shooter guide, Range Officer certification, and USPSA reference links for Alabama shooters and club officers.">
+  <div class="container">
+    <div class="page-head">
+      <h1>Resources</h1>
+      <p class="lede">For shooters, for club officers, and for anyone thinking about their first match.</p>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card prose">
+        <h3>Your first USPSA match</h3>
+        <ul>
+          <li>You do not need a USPSA membership to shoot your first match. You will need one to be classified.</li>
+          <li>Bring: a handgun (or PCC), a holster that covers the trigger guard, at least three magazines and pouches, 150-200 rounds, eye and ear protection.</li>
+          <li>Tell the match director it's your first match. Every Alabama club will walk you through the safety briefing and put you in a squad with experienced shooters.</li>
+          <li>Register on the club's PractiScore page. Find your nearest club in the <a href="/clubs/">directory</a>.</li>
+        </ul>
+        <p><a href="https://uspsa.org/pages/about" rel="noopener" target="_blank">USPSA: about the sport</a></p>
+      </div>
+
+      <div class="card prose">
+        <h3>Become a Range Officer</h3>
+        <p>NROI certifies Range Officers through Level I seminars, usually hosted by a club over a weekend. Alabama clubs need ROs, and the Section Coordinator must hold at least RO certification.</p>
+        <ul>
+          <li><a href="https://uspsa.org/nroi" rel="noopener" target="_blank">NROI home</a></li>
+          <li>Upcoming seminars in Area 6 are listed on <a href="https://uspsa.org/area6" rel="noopener" target="_blank">uspsa.org/area6</a> and on the <a href="/calendar/">Section calendar</a> when held in Alabama.</li>
+        </ul>
+      </div>
+
+      <div class="card prose">
+        <h3>For club officers</h3>
+        <ul>
+          <li>Results and activity fees to USPSA within 30 days of every match (USPSA Bylaws §3.05(d)).</li>
+          <li>Section club fee before 30 January (<a href="/governance/finances/">Finances</a>).</li>
+          <li>Send a representative to the annual Executive Committee meeting (<a href="/governance/meetings/">Meetings</a>).</li>
+          <li>Planning a Level II match? The Section Championship is chosen by the Committee; other Level II+ matches should be coordinated with the Section Coordinator to avoid date conflicts.</li>
+          <li>Keep your <a href="/clubs/">club listing</a> current: <a href="/contact/">send changes</a>.</li>
+        </ul>
+      </div>
+
+      <div class="card prose">
+        <h3>USPSA reference</h3>
+        <ul>
+          {USPSA_LINKS.map((l) => <li><a href={l.url} rel="noopener" target="_blank">{l.label}</a></li>)}
+        </ul>
+      </div>
+    </div>
+  </div>
+</Base>

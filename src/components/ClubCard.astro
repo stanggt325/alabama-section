@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props { club: CollectionEntry<'clubs'> }
+const { club } = Astro.props;
+const { name, uspsaId, city, region, website, practiscore, facebook, schedule } = club.data;
+---
+<article class="card">
+  <div class="meta">
+    <span class="badge">{uspsaId}</span>
+    <span>{city}, AL</span>
+    <span>&middot;</span>
+    <span>{region} Alabama</span>
+  </div>
+  <h3><a href={`/clubs/${club.id}/`}>{name}</a></h3>
+  {schedule && <p>{schedule}</p>}
+  <p class="links">
+    {website && <a href={website} rel="noopener" target="_blank">Website</a>}
+    {practiscore && <> &middot; <a href={practiscore} rel="noopener" target="_blank">PractiScore</a></>}
+    {facebook && <> &middot; <a href={facebook} rel="noopener" target="_blank">Facebook</a></>}
+  </p>
+</article>
