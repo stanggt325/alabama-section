@@ -63,25 +63,36 @@ npm run check      # type-check .astro files
 Install with `--before=<date>` when adding dependencies, to avoid versions published in
 the last two weeks.
 
-## Deploying to Cloudflare Pages
+## Deploying to Cloudflare
 
-Git integration, no CLI needed:
+Cloudflare now creates Git-connected projects as **Workers** (with static assets), not
+Pages. Either works for this site; the repo is set up for Workers.
 
-1. Cloudflare dashboard → Workers & Pages → Create → Pages → Connect to Git →
-   `stanggt325/alabama-section`.
-2. Build settings:
-   - Framework preset: **Astro**
-   - Build command: `npm run build`
-   - Build output directory: `dist`
-   - Environment variable: `NODE_VERSION` = `24`
-3. Production branch: `main`. Every push to `main` deploys; every PR gets a preview URL.
-4. Custom domain: Pages → Custom domains → add the domain. Cloudflare handles DNS and
-   TLS if the zone is on Cloudflare (alstateuspsa.com already is).
+`wrangler.jsonc` tells wrangler to upload `dist/` as static assets, with no Worker
+script and no Astro adapter. **Do not remove it**: without it, `wrangler deploy`
+auto-configures the project by running `astro add cloudflare`, which installs an
+adapter that is incompatible with Astro 7 and fails the build.
 
+Workers & Pages → Create → Workers → Import a repository → `stanggt325/alabama-section`:
+
+- Build command: `npm run build`
+- Deploy command: `npx wrangler deploy`
+- Non-production branches: `npx wrangler versions upload` (preview URLs per PR)
+
+`wrangler` is pinned in `devDependencies` so the deploy step uses a known version
+instead of whatever `npx` downloads that day.
+
+Custom domain: the Worker's Settings → Domains & Routes → add the domain. Cloudflare
+handles DNS and TLS if the zone is on Cloudflare (alstateuspsa.com already is).
 Then set `site` in `astro.config.mjs` to the real domain so canonical URLs are right.
 
-`public/_headers` sets security headers; `public/_redirects` is where old
-`uspsaalabamasection.org` paths get mapped if that domain is ever pointed here.
+`public/_headers` sets security headers; `public/_redirects` maps old
+`uspsaalabamasection.org` paths if that domain is ever pointed here. Both are honored
+by Workers static assets.
+
+Known `npm audit` finding: `wrangler` → `miniflare` → `sharp` (libheif). Dev-only,
+local image decoding in miniflare, which this project never runs. Clears when
+wrangler 4.131+ is older than the 14-day install cutoff.
 
 ## The 2026 match book
 

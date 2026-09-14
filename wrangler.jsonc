@@ -1,0 +1,14 @@
+{
+  // Cloudflare Workers static-assets deploy. No Worker script, no adapter:
+  // `astro build` writes dist/, `wrangler deploy` uploads it.
+  // Presence of this file is what stops `wrangler deploy` from auto-configuring
+  // the project (which installs @astrojs/cloudflare and breaks the build).
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "alabama-section",
+  "compatibility_date": "2026-09-14",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  }
+}
