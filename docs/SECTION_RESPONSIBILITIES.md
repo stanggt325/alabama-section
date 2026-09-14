@@ -151,8 +151,11 @@ election and meeting notices are in `src/content/notices/_TEMPLATE-*.md.txt`.
   Art. 9; USPSA Nationals Slot Policy: roughly one slot per 10 participants per
   division, capped). Performance-earned slots (prior Nationals, Area Championship) go
   directly to shooters.
-- Section distributes by placement at the Section Championship, division champions
-  first (Art. 11.A). Leftover-slot drawing is now prohibited (see above).
+- The 2019 bylaws (Art. 11.A) distribute by placement at the Section Championship,
+  division champions first, with leftovers by drawing. In practice slots had been
+  drawn by lot, which the policy prohibits. **From 2027 the Section awards slots by
+  application to the SC**, evaluated on placement first (policy-compliant); the
+  bylaws amendment should codify that. Nothing is published until slots are awarded.
 - Unused slots go back to USPSA (ECO 10.4 is a good model for the mechanics).
 
 ## Dissolution risk (Policy §8)

@@ -9,18 +9,17 @@ export const SITE = {
   email: 'coordinator@alabamauspsa.org',
 };
 
-// Executive Committee. Per the 2019 bylaws (Art. 4) the committee is the Section
-// Coordinator plus the president (or designated representative) of each member club.
-// TODO: fill in current names. Placeholders are intentional; do not launch with them.
+// Section officers. The 2019 bylaws define only the Section Coordinator (Art. 4.A);
+// Webmaster is an appointed, non-voting role. The Executive Committee (club
+// representatives, Art. 4.B) is listed separately from club data.
+// TODO: contact emails once the Section's mailboxes exist.
 export const OFFICERS = [
-  { role: 'Section Coordinator', name: 'TBD', club: '', email: '' },
-  { role: 'Deputy Section Coordinator', name: 'TBD', club: '', email: '' },
-  { role: 'Secretary / Treasurer', name: 'TBD', club: '', email: '' },
-  { role: 'Webmaster', name: 'TBD', club: '', email: '' },
+  { role: 'Section Coordinator', name: 'Rodney Hawkins', club: '', email: '' },
+  { role: 'Webmaster', name: 'Jeremy Hughes', club: '', email: '' },
 ];
 
 export const AREA_DIRECTOR = {
-  name: 'William Herrington',
+  name: 'Billy Herrington',
   title: 'USPSA Area 6 Director',
   url: 'https://uspsa.org/area6',
 };
