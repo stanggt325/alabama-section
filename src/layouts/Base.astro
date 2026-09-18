@@ -70,7 +70,8 @@ const isCurrent = (href: string) => (href === '/' ? path === '/' : path.startsWi
           <div>
             <h4>{SITE.name}</h4>
             <p>{SITE.tagline}</p>
-            <p><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+            {SITE.email && <p><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>}
+            <p>Site: <a href={`mailto:${SITE.webmaster}`}>{SITE.webmaster}</a></p>
           </div>
           <div>
             <h4>Section</h4>

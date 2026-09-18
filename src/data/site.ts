@@ -5,17 +5,17 @@ export const SITE = {
   shortName: 'Alabama Section',
   tagline: 'The local link to USPSA for Alabama clubs and shooters.',
   area: 'Area 6',
-  // TODO: confirm the Section's official contact address before launch.
-  email: 'coordinator@alabamauspsa.org',
+  // Section Coordinator mailbox. Empty until Email Routing forwards it (pending Rodney).
+  email: '',
+  webmaster: 'webmaster@alabamauspsa.org',
 };
 
 // Section officers. The 2019 bylaws define only the Section Coordinator (Art. 4.A);
 // Webmaster is an appointed, non-voting role. The Executive Committee (club
 // representatives, Art. 4.B) is listed separately from club data.
-// TODO: contact emails once the Section's mailboxes exist.
 export const OFFICERS = [
   { role: 'Section Coordinator', name: 'Rodney Hawkins', club: '', email: '' },
-  { role: 'Webmaster', name: 'Jeremy Hughes', club: '', email: '' },
+  { role: 'Webmaster', name: 'Jeremy Hughes', club: '', email: 'webmaster@alabamauspsa.org' },
 ];
 
 export const AREA_DIRECTOR = {

@@ -13,7 +13,7 @@ import { SITE, AREA_DIRECTOR } from '../data/site';
       <div class="card">
         <h3>Section Coordinator</h3>
         <p>Rodney Hawkins</p>
-        <p>Email: <span class="soon">Coming soon</span></p>
+        <p>Email: {SITE.email ? <a href={`mailto:${SITE.email}`}>{SITE.email}</a> : <span class="soon">Coming soon</span>}</p>
       </div>
       <div class="card">
         <h3>{AREA_DIRECTOR.title}</h3>
@@ -26,6 +26,8 @@ import { SITE, AREA_DIRECTOR } from '../data/site';
       <div class="prose">
         <h2>Match or rules questions</h2>
         <p>For a specific match, contact the host club directly (see the <a href="/clubs/">club directory</a>). For USPSA rules interpretations, the Section Coordinator has jurisdiction within the Section (Bylaws Art. 7.A); anything beyond that goes to NROI.</p>
+        <h2>This website</h2>
+        <p>Corrections to a club listing, broken links, or anything else about the site: <a href={`mailto:${SITE.webmaster}`}>{SITE.webmaster}</a>.</p>
         <h2>Membership and classification</h2>
         <p>Membership, classifier scores, and account questions are handled by USPSA headquarters, not the Section: <a href="https://uspsa.org/contact" rel="noopener" target="_blank">uspsa.org/contact</a>.</p>
       </div>
