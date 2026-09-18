@@ -90,6 +90,13 @@ Known `npm audit` finding: `wrangler` → `miniflare` → `sharp` (libheif). Dev
 local image decoding in miniflare, which this project never runs. Clears when
 wrangler 4.131+ is older than the 14-day install cutoff.
 
+## Credits
+
+The Alabama outline in the Section mark (`src/components/Mark.astro`, `public/favicon.svg`)
+is derived from the U.S. Census Bureau's 2023 Cartographic Boundary Files
+(`cb_2023_us_state_500k`, STATEFP 01), a public-domain federal work. Mainland ring only,
+simplified for icon use.
+
 ## The 2026 match book
 
 The 2026 State Championship digital match book (`stanggt325/2026-al-state-championship`,
