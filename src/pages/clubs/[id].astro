@@ -24,9 +24,9 @@ const d = club.data;
         <h3>Details</h3>
         <dl class="kv">
           <dt>USPSA club ID</dt><dd>{d.uspsaId}</dd>
-          <dt>Matches</dt><dd>{d.schedule ?? <span class="todo">TODO</span>}</dd>
-          <dt>Address</dt><dd>{d.address ? (d.mapUrl ? <a href={d.mapUrl} rel="noopener" target="_blank">{d.address}</a> : d.address) : <span class="todo">TODO</span>}</dd>
-          <dt>Contact</dt><dd>{d.contact ?? <span class="todo">TODO</span>}</dd>
+          <dt>Matches</dt><dd>{d.schedule ?? <span class="soon">Coming soon</span>}</dd>
+          <dt>Address</dt><dd>{d.address ? (d.mapUrl ? <a href={d.mapUrl} rel="noopener" target="_blank">{d.address}</a> : d.address) : <span class="soon">Coming soon</span>}</dd>
+          <dt>Contact</dt><dd>{d.contact ?? <span class="soon">Coming soon</span>}</dd>
         </dl>
       </div>
       <div class="card">

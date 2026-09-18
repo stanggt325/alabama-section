@@ -5,4 +5,3 @@ city: Phenix City
 region: East
 website: http://www.eastalabamagunclub.com
 ---
-TODO: match schedule, range address, contact.

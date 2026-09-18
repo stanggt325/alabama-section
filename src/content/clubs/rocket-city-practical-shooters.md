@@ -5,4 +5,4 @@ city: Woodville
 region: North
 website: http://rocketcityshooters.com
 ---
-TODO: match schedule, range address, contact. Hosted the 2024 Section Championship.
+Hosted the 2024 Section Championship.

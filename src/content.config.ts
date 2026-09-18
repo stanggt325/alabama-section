@@ -2,8 +2,9 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
-// Notices: the Section's official notifications. Elections, meetings, bylaws
-// amendments, Nationals slot distribution, club affiliation changes, etc.
+// Notices: the Alabama Section's official notifications, and nothing else.
+// Elections, meetings, bylaws amendments, Nationals slot distribution, club
+// affiliation changes. Not a news feed for USPSA, Area 6, or other Sections.
 // One markdown file per notice under src/content/notices/.
 const notices = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/notices' }),
@@ -59,9 +60,10 @@ const minutes = defineCollection({
   }),
 });
 
-// Events: Section-level calendar. Club monthly matches live on PractiScore, not here;
-// this is for the Section Championship, Area/Nationals dates, meetings, elections,
-// and NROI seminars in the state.
+// Events: Section-level calendar. Alabama Section items ONLY: the Section
+// Championship, Executive Committee meetings, elections, Section deadlines, and
+// NROI seminars held in Alabama. Club monthly matches live on PractiScore. Other
+// Sections' championships, Area 6, and Nationals dates are on uspsa.org, not here.
 const events = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/events' }),
   schema: z.object({

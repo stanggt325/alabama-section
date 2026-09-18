@@ -66,7 +66,7 @@ p { margin: 0 0 1em; }
   font-family: var(--font-head); font-size: 1.1rem; letter-spacing: 0.05em;
   display: grid; place-items: center;
 }
-.brand .name { font-family: var(--font-head); font-size: 1.25rem; text-transform: uppercase; letter-spacing: 0.03em; }
+.brand .name { font-family: var(--font-head); font-size: 1.25rem; text-transform: uppercase; letter-spacing: 0.03em; white-space: nowrap; }
 .brand .sub { display: block; font-family: var(--font-body); font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.12em; }
 
 .nav-toggle {
@@ -80,7 +80,7 @@ p { margin: 0 0 1em; }
 }
 .nav a:hover, .nav a[aria-current="page"] { background: var(--paper-2); color: var(--crimson); }
 
-@media (max-width: 860px) {
+@media (max-width: 980px) {
   .nav-toggle { display: inline-block; }
   .nav { display: none; width: 100%; padding-bottom: 0.75rem; }
   .nav.open { display: block; }
@@ -175,6 +175,12 @@ table.data th { font-weight: 600; background: var(--paper-2); white-space: nowra
 }
 .callout.warn { border-color: #f1c9c9; background: #fdf1f1; border-left-color: var(--crimson); }
 .callout p:last-child { margin-bottom: 0; }
+
+.soon {
+  display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+  background: #e8eef7; color: #2b4a7a; border: 1px solid #c8d5ea; border-radius: 999px;
+  padding: 0.15rem 0.55rem; text-transform: uppercase; vertical-align: middle; white-space: nowrap;
+}
 
 .todo {
   display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;

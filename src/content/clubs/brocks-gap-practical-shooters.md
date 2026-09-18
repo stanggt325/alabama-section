@@ -5,4 +5,3 @@ city: Pell City
 region: Central
 website: http://www.brocksgap.com
 ---
-TODO: match schedule, range address, contact.

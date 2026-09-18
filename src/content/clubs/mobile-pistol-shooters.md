@@ -6,4 +6,3 @@ region: Gulf Coast
 website: http://mpsa.us
 facebook: https://www.facebook.com/MobilePistolShooters
 ---
-TODO: match schedule, range address, contact.

@@ -51,7 +51,7 @@ const clubs = (await getCollection('clubs')).filter((c) => c.data.active).sort((
               <tr>
                 <td><a href={`/clubs/${c.id}/`}>{c.data.name}</a></td>
                 <td>{c.data.uspsaId}</td>
-                <td>{c.data.contact ?? 'Pending'}</td>
+                <td>{c.data.contact ?? <span class="soon">Coming soon</span>}</td>
               </tr>
             ))}
           </tbody>

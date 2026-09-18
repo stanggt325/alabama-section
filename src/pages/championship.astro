@@ -1,10 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
+import Soon from '../components/Soon.astro';
 import { CHAMPIONSHIP_HISTORY } from '../data/site';
 
 const year = new Date().getFullYear();
 const current = CHAMPIONSHIP_HISTORY.find((c) => c.year === year);
 const next = CHAMPIONSHIP_HISTORY.find((c) => c.year === year + 1);
+// Recent years get a "Coming soon" pill for missing data; older gaps are just unknown.
+const recent = (c: { year: number }) => c.year >= 2024;
 ---
 <Base title="Section Championship" description="The annual Alabama State USPSA Championship: current match, host club, and results back to 2010.">
   <div class="container">
@@ -18,7 +21,7 @@ const next = CHAMPIONSHIP_HISTORY.find((c) => c.year === year + 1);
       {current && (
         <div class="card">
           <span class="eyebrow">{current.year}</span>
-          <h3>{current.host || 'Host TBD'}</h3>
+          <h3>{current.host || <Soon />}</h3>
           <p>{current.location}{current.dates ? ` · ${current.dates}` : ''}</p>
           <p>
             {current.matchbook && <a class="btn btn-primary" href={current.matchbook} rel="noopener" target="_blank">Match book &amp; stages</a>}
@@ -51,7 +54,7 @@ const next = CHAMPIONSHIP_HISTORY.find((c) => c.year === year + 1);
 
     <section class="section">
       <h2>Results archive</h2>
-      <p>Links for 2010 through 2015 point at archived copies of the previous Section website. <span class="todo">TODO</span> fill in host, dates, and results for years marked blank.</p>
+      <p>Links for 2010 through 2015 point at archived copies of the previous Section website.</p>
       <div class="table-wrap">
         <table class="data">
           <thead><tr><th>Year</th><th>Host</th><th>Location</th><th>Dates</th><th>Links</th></tr></thead>
@@ -59,11 +62,11 @@ const next = CHAMPIONSHIP_HISTORY.find((c) => c.year === year + 1);
             {CHAMPIONSHIP_HISTORY.map((c) => (
               <tr>
                 <td>{c.year}</td>
-                <td>{c.host || '—'}</td>
-                <td>{c.location || '—'}</td>
-                <td>{c.dates || '—'}</td>
+                <td>{c.host && c.host !== 'TBD' ? c.host : (recent(c) ? <Soon /> : '—')}</td>
+                <td>{c.location || (recent(c) ? <Soon /> : '—')}</td>
+                <td>{c.dates || (recent(c) ? <Soon /> : '—')}</td>
                 <td>
-                  {c.results ? <a href={c.results} rel="noopener" target="_blank">Results</a> : '—'}
+                  {c.results ? <a href={c.results} rel="noopener" target="_blank">Results</a> : (recent(c) ? <Soon /> : '—')}
                   {c.matchbook && <> &middot; <a href={c.matchbook} rel="noopener" target="_blank">Match book</a></>}
                 </td>
               </tr>

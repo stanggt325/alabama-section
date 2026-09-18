@@ -5,4 +5,3 @@ city: Madison
 region: North
 website: https://www.lastresortguns.com
 ---
-TODO: match schedule, range address, contact.

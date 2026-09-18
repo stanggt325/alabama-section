@@ -5,4 +5,4 @@ city: Shorter
 region: Central
 website: http://www.centralalabamagunclub.com
 ---
-Shoots at Central Alabama Gun Club near Montgomery. TODO: match schedule, contact.
+Shoots at Central Alabama Gun Club near Montgomery.

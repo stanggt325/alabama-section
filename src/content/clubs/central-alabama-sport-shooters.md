@@ -5,4 +5,4 @@ city: Odenville
 region: Central
 website: http://hrpclub.org
 ---
-Shoots at Heritage Rifle and Pistol Club. TODO: match schedule, contact.
+Shoots at Heritage Rifle and Pistol Club.
