@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import PageHead from '../../components/PageHead.astro';
 import Base from '../../layouts/Base.astro';
 import GovNav from '../../components/GovNav.astro';
 import { OFFICERS, AREA_DIRECTOR } from '../../data/site';
@@ -7,11 +8,8 @@ import { OFFICERS, AREA_DIRECTOR } from '../../data/site';
 const clubs = (await getCollection('clubs')).filter((c) => c.data.active).sort((a, b) => a.data.uspsaId.localeCompare(b.data.uspsaId));
 ---
 <Base title="Governance" description="How the USPSA Alabama Section is run: the Section Coordinator, the Executive Committee, and the Area Director.">
+  <PageHead title="Governance" lede="The Section is governed by an Executive Committee: the Section Coordinator as chair, plus the president (or a designated representative) of every member club, one vote each (Bylaws Art. 4-5). The Section Coordinator answers to the USPSA Area 6 Director." />
   <div class="container">
-    <div class="page-head">
-      <h1>Governance</h1>
-      <p class="lede">The Section is governed by an Executive Committee: the Section Coordinator as chair, plus the president (or a designated representative) of every member club, one vote each (Bylaws Art. 4-5). The Section Coordinator answers to the USPSA Area 6 Director.</p>
-    </div>
     <GovNav />
 
     <section class="section" style="padding-top:0">

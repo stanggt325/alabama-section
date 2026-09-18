@@ -1,14 +1,12 @@
 ---
+import PageHead from '../../components/PageHead.astro';
 import Base from '../../layouts/Base.astro';
 import GovNav from '../../components/GovNav.astro';
 import { BYLAWS } from '../../data/site';
 ---
 <Base title="Bylaws" description="The USPSA Alabama Section bylaws, current revision and history.">
+  <PageHead title="Section bylaws" lede="Section bylaws are subordinate to the USPSA Bylaws and rules of competition. USPSA must be given a copy after every amendment and at every Section Coordinator election; if a Section stops filing them, USPSA's default standards apply instead (Policy §2.5-2.6)." />
   <div class="container">
-    <div class="page-head">
-      <h1>Section bylaws</h1>
-      <p class="lede">Section bylaws are subordinate to the USPSA Bylaws and rules of competition. USPSA must be given a copy after every amendment and at every Section Coordinator election; if a Section stops filing them, USPSA's default standards apply instead (Policy §2.5-2.6).</p>
-    </div>
     <GovNav />
 
     <div class="grid grid-2">

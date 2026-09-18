@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import PageHead from '../../components/PageHead.astro';
 import Base from '../../layouts/Base.astro';
 
 export async function getStaticPaths() {
@@ -11,13 +12,10 @@ const { Content } = await render(club);
 const d = club.data;
 ---
 <Base title={d.name} description={`${d.name} (${d.uspsaId}), a USPSA club in ${d.city}, Alabama.`}>
+  <PageHead title={d.name} plain eyebrow={`${d.uspsaId} · ${d.region} Alabama`} back={{ href: '/clubs/', label: 'All clubs' }}>
+    <p class="lede">{d.city}, AL</p>
+  </PageHead>
   <div class="container">
-    <div class="page-head">
-      <p class="meta"><a href="/clubs/">&larr; All clubs</a></p>
-      <span class="eyebrow">{d.uspsaId} &middot; {d.region} Alabama</span>
-      <h1 style="text-transform:none">{d.name}</h1>
-      <p class="lede">{d.city}, AL</p>
-    </div>
 
     <div class="grid grid-2">
       <div class="card">

@@ -1,13 +1,11 @@
 ---
+import PageHead from '../components/PageHead.astro';
 import Base from '../layouts/Base.astro';
 import { SITE, AREA_DIRECTOR } from '../data/site';
 ---
 <Base title="Contact" description="Contact the USPSA Alabama Section Coordinator.">
+  <PageHead title="Contact" lede="Questions about the Section, a club listing, Nationals slots, or affiliating a new club go to the Section Coordinator." />
   <div class="container">
-    <div class="page-head">
-      <h1>Contact</h1>
-      <p class="lede">Questions about the Section, a club listing, Nationals slots, or affiliating a new club go to the Section Coordinator.</p>
-    </div>
 
     <div class="grid grid-2">
       <div class="card">

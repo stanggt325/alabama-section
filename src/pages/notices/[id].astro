@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from 'astro:content';
+import PageHead from '../../components/PageHead.astro';
 import Base from '../../layouts/Base.astro';
 import { fmtDate } from '../../lib/dates';
 
@@ -10,15 +11,13 @@ export async function getStaticPaths() {
 const { notice } = Astro.props;
 const { Content } = await render(notice);
 const { title, date, category, summary } = notice.data;
+const LABEL: Record<string, string> = { election: 'Election notice', meeting: 'Meeting notice', bylaws: 'Bylaws', 'nationals-slots': 'Nationals slots', championship: 'Championship', clubs: 'Clubs', general: 'Section notice' };
 ---
 <Base title={title} description={summary}>
+  <PageHead title={title} plain eyebrow={LABEL[category]} back={{ href: '/notices/', label: 'All notices' }}>
+    <p class="lede"><time datetime={date.toISOString()}>{fmtDate(date)}</time></p>
+  </PageHead>
   <div class="container">
-    <div class="page-head">
-      <p class="meta"><a href="/notices/">&larr; All notices</a></p>
-      <span class={`badge badge-${category}`}>{category.replace('-', ' ')}</span>
-      <h1 style="text-transform:none">{title}</h1>
-      <p class="lede"><time datetime={date.toISOString()}>{fmtDate(date)}</time></p>
-    </div>
     <article class="prose">
       <Content />
     </article>

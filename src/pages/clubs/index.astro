@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import PageHead from '../../components/PageHead.astro';
 import Base from '../../layouts/Base.astro';
 import ClubCard from '../../components/ClubCard.astro';
 
@@ -7,11 +8,10 @@ const REGIONS = ['North', 'Central', 'East', 'South', 'Gulf Coast'] as const;
 const clubs = (await getCollection('clubs')).filter((c) => c.data.active);
 ---
 <Base title="Member clubs" description="USPSA-affiliated clubs in the Alabama Section, by region.">
+  <PageHead title="Member clubs">
+    <p class="lede">{clubs.length} USPSA-affiliated clubs make up the Alabama Section. Monthly match registration and results are on each club's PractiScore page. Shoot at any of them; a USPSA membership is not required for your first match.</p>
+  </PageHead>
   <div class="container">
-    <div class="page-head">
-      <h1>Member clubs</h1>
-      <p class="lede">{clubs.length} USPSA-affiliated clubs make up the Alabama Section. Monthly match registration and results are on each club's PractiScore page. Shoot at any of them; a USPSA membership is not required for your first match.</p>
-    </div>
 
     <ul class="subnav">
       {REGIONS.map((r) => <li><a href={`#${r.toLowerCase().replace(' ', '-')}`}>{r}</a></li>)}

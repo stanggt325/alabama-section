@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import PageHead from '../../components/PageHead.astro';
 import Base from '../../layouts/Base.astro';
 import NoticeCard from '../../components/NoticeCard.astro';
 
@@ -12,11 +13,8 @@ for (const n of notices) {
 }
 ---
 <Base title="Notices" description="Official notifications from the USPSA Alabama Section: elections, meetings, bylaws, Nationals slots, and club changes.">
+  <PageHead title="Section notices" lede="Official notifications from the Alabama Section. Anything the Section is required to tell its clubs and members is posted here: Executive Committee meetings, Section Coordinator elections, bylaws amendments, Nationals slot distribution, and club affiliation changes." />
   <div class="container">
-    <div class="page-head">
-      <h1>Section notices</h1>
-      <p class="lede">Official notifications from the Alabama Section. Anything the Section is required to tell its clubs and members is posted here: Executive Committee meetings, Section Coordinator elections, bylaws amendments, Nationals slot distribution, and club affiliation changes.</p>
-    </div>
 
     {[...byYear.entries()].map(([year, list]) => (
       <section class="section" style="padding-top:0">

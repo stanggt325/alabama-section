@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import PageHead from '../../../components/PageHead.astro';
 import Base from '../../../layouts/Base.astro';
 import GovNav from '../../../components/GovNav.astro';
 import { fmtDate } from '../../../lib/dates';
@@ -10,11 +11,8 @@ const upcoming = (await getCollection('events'))
   .sort((a, b) => a.data.start.getTime() - b.data.start.getTime());
 ---
 <Base title="Meetings & minutes" description="Alabama Section Executive Committee meeting schedule and minutes.">
+  <PageHead title="Meetings &amp; minutes" lede="The Executive Committee meets at least once a year, during or immediately after the Section Championship (Bylaws Art. 6). Special meetings may be called by the Section Coordinator or any two committee members and may be held electronically." />
   <div class="container">
-    <div class="page-head">
-      <h1>Meetings &amp; minutes</h1>
-      <p class="lede">The Executive Committee meets at least once a year, during or immediately after the Section Championship (Bylaws Art. 6). Special meetings may be called by the Section Coordinator or any two committee members and may be held electronically.</p>
-    </div>
     <GovNav />
 
     <section class="section" style="padding-top:0">

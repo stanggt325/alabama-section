@@ -15,7 +15,7 @@ const LABEL: Record<string, string> = {
   general: 'Notice',
 };
 ---
-<article class="card">
+<article class="card" data-cat={category}>
   <div class="meta">
     <span class={`badge badge-${category}`}>{LABEL[category]}</span>
     <time datetime={date.toISOString()}>{fmtDate(date)}</time>

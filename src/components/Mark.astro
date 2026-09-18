@@ -1,0 +1,14 @@
+---
+// The Section mark: a simplified Alabama silhouette. Same path is used for the
+// favicon, header tile, hero watermark, and footer. Coordinates are lon/lat scaled
+// into a 100x134 box (west -88.5, east -84.9, north 35.0, south 30.2).
+interface Props { size?: number; tile?: boolean; class?: string }
+const { size = 40, tile = true, class: cls = '' } = Astro.props;
+---
+<svg class={cls} width={size} height={size} viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+  {tile && <rect width="100" height="100" rx="14" fill="var(--crimson)" />}
+  <g transform="translate(22 6) scale(0.56)">
+    <path d="M8.3 0H80.6L97.3 111H25L27.8 130L14 132L2.8 128L1.4 111Z" fill={tile ? '#fff' : 'currentColor'} />
+  </g>
+  {tile && <rect x="22" y="86" width="56" height="4" rx="2" fill="var(--gold)" />}
+</svg>

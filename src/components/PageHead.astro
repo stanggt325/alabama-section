@@ -1,0 +1,16 @@
+---
+// Dark title band used at the top of every interior page.
+import Mark from './Mark.astro';
+interface Props { title: string; eyebrow?: string; lede?: string; back?: { href: string; label: string }; plain?: boolean }
+const { title, eyebrow, lede, back, plain = false } = Astro.props;
+---
+<section class="band page-head">
+  <div class="watermark"><Mark tile={false} size={420} /></div>
+  <div class="container">
+    {back && <p class="meta"><a href={back.href}>&larr; {back.label}</a></p>}
+    {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+    <h1 style={plain ? 'text-transform:none' : undefined}>{title}</h1>
+    {lede && <p class="lede" set:html={lede} />}
+    <slot />
+  </div>
+</section>

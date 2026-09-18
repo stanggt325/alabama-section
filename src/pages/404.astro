@@ -1,12 +1,10 @@
 ---
+import PageHead from '../components/PageHead.astro';
 import Base from '../layouts/Base.astro';
 ---
 <Base title="Page not found">
+  <PageHead title="Page not found" lede="That page doesn't exist. If you followed a link from the old Section site, the content has moved." />
   <div class="container">
-    <div class="page-head">
-      <h1>Page not found</h1>
-      <p class="lede">That page doesn't exist. If you followed a link from the old Section site, the content has moved.</p>
-    </div>
     <ul>
       <li><a href="/">Home</a></li>
       <li><a href="/clubs/">Member clubs</a></li>

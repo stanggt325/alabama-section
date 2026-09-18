@@ -1,13 +1,11 @@
 ---
+import PageHead from '../../components/PageHead.astro';
 import Base from '../../layouts/Base.astro';
 import GovNav from '../../components/GovNav.astro';
 ---
 <Base title="Finances" description="Alabama Section funds: what comes in, what it may be spent on, and the annual accounting to member clubs.">
+  <PageHead title="Finances" lede="The Section runs on a small annual fee from each member club. USPSA policy requires a full accounting to the clubs every year; this page is where it gets published." />
   <div class="container">
-    <div class="page-head">
-      <h1>Finances</h1>
-      <p class="lede">The Section runs on a small annual fee from each member club. USPSA policy requires a full accounting to the clubs every year; this page is where it gets published.</p>
-    </div>
     <GovNav />
 
     <div class="prose">

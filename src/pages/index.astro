@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
+import Mark from '../components/Mark.astro';
 import NoticeCard from '../components/NoticeCard.astro';
 import EventRow from '../components/EventRow.astro';
 import { SITE, CHAMPIONSHIP_HISTORY } from '../data/site';
@@ -17,26 +18,40 @@ const events = (await getCollection('events'))
   .sort((a, b) => a.data.start.getTime() - b.data.start.getTime())
   .slice(0, 5);
 
-const clubs = await getCollection('clubs');
+const clubs = (await getCollection('clubs')).filter((c) => c.data.active);
 const nextChampionship = CHAMPIONSHIP_HISTORY.find((c) => c.year >= now.getFullYear() && c.host && c.host !== 'TBD');
+const firstResultsYear = Math.min(...CHAMPIONSHIP_HISTORY.filter((c) => c.results).map((c) => c.year));
 ---
 <Base title={SITE.name}>
-  <section class="hero">
+  <section class="band hero">
+    <div class="watermark"><Mark tile={false} size={420} /></div>
     <div class="container">
       <span class="eyebrow">USPSA Area 6 &middot; State of Alabama</span>
-      <h1>USPSA Alabama Section</h1>
-      <p class="lede">{SITE.tagline} {clubs.length} affiliated clubs, one Section Championship a year, and the Nationals slots that come with it.</p>
+      <h1>Practical shooting in Alabama</h1>
+      <p class="lede">The Alabama Section is the local link between USPSA and the state's affiliated clubs: {clubs.length} clubs, one State Championship a year, and the Nationals slots that come with it.</p>
       <div class="actions">
-        <a class="btn btn-primary" href="/clubs/">Find a club near you</a>
-        <a class="btn btn-ghost" href="/championship/">Section Championship</a>
+        <a class="btn btn-primary" href="/clubs/">Find a club</a>
+        <a class="btn btn-ghost" href="/championship/">State Championship</a>
       </div>
+    </div>
+  </section>
+
+  <section class="stats" aria-label="Section at a glance">
+    <div class="container">
+      <div class="stat"><div class="n">{clubs.length}</div><div class="l">Member clubs</div></div>
+      <div class="stat"><div class="n">1</div><div class="l">State Championship a year</div></div>
+      <div class="stat"><div class="n">{firstResultsYear}</div><div class="l">Results archive since</div></div>
+      <div class="stat"><div class="n">A6</div><div class="l">USPSA Area 6</div></div>
     </div>
   </section>
 
   <section class="section">
     <div class="container">
       <div class="section-head">
-        <h2>Section notices</h2>
+        <div>
+          <span class="eyebrow">Official</span>
+          <h2>Section notices</h2>
+        </div>
         <a class="more" href="/notices/">All notices &rarr;</a>
       </div>
       <div class="grid grid-3">
@@ -47,11 +62,20 @@ const nextChampionship = CHAMPIONSHIP_HISTORY.find((c) => c.year >= now.getFullY
 
   {nextChampionship && (
     <section class="section">
-      <div class="container">
-        <span class="eyebrow">Next up</span>
-        <h2>{nextChampionship.year} Alabama State Championship</h2>
-        <p>Hosted by {nextChampionship.host} in {nextChampionship.location}{nextChampionship.dates ? `, ${nextChampionship.dates}` : ''}. Section Champion titles in every recognized division, and Nationals slots distributed per the Section bylaws.</p>
-        <a class="btn btn-outline" href="/championship/">Championship details</a>
+      <div class="container feature">
+        <div>
+          <span class="eyebrow">Next up</span>
+          <h2>{nextChampionship.year} Alabama State Championship</h2>
+          <p>Hosted by {nextChampionship.host} in {nextChampionship.location}{nextChampionship.dates ? `, ${nextChampionship.dates}` : ''}. Section Champion titles in every recognized division, and placement here is the primary factor for Nationals slots.</p>
+          <a class="btn btn-outline" href="/championship/">Championship details</a>
+        </div>
+        <div class="art poster">
+          <Mark tile={false} size={160} class="poster-mark" />
+          <div class="poster-year">{nextChampionship.year}</div>
+          <div class="poster-sub">{nextChampionship.location}</div>
+          <div class="poster-rule"></div>
+          <div class="poster-host">{nextChampionship.host}</div>
+        </div>
       </div>
     </section>
   )}
@@ -59,7 +83,10 @@ const nextChampionship = CHAMPIONSHIP_HISTORY.find((c) => c.year >= now.getFullY
   <section class="section">
     <div class="container">
       <div class="section-head">
-        <h2>Calendar</h2>
+        <div>
+          <span class="eyebrow">Section dates</span>
+          <h2>Calendar</h2>
+        </div>
         <a class="more" href="/calendar/">Full calendar &rarr;</a>
       </div>
       {events.length ? (
@@ -78,15 +105,15 @@ const nextChampionship = CHAMPIONSHIP_HISTORY.find((c) => c.year >= now.getFullY
   <section class="section">
     <div class="container">
       <div class="grid grid-3">
-        <div class="card">
+        <div class="card accent">
           <h3><a href="/nationals-slots/">Nationals slots</a></h3>
-          <p>How the Section earns USPSA Nationals slots and how they are distributed to Alabama shooters.</p>
+          <p>How the Section earns USPSA Nationals slots and how they are awarded to Alabama shooters.</p>
         </div>
-        <div class="card">
+        <div class="card accent">
           <h3><a href="/governance/">Governance</a></h3>
           <p>The Executive Committee, current bylaws, meeting minutes, and the election schedule.</p>
         </div>
-        <div class="card">
+        <div class="card accent">
           <h3><a href="/resources/">New to USPSA?</a></h3>
           <p>What to bring to your first match, how classification works, and how to become a Range Officer.</p>
         </div>

@@ -1,4 +1,5 @@
 ---
+import PageHead from '../components/PageHead.astro';
 import Base from '../layouts/Base.astro';
 import Soon from '../components/Soon.astro';
 import { CHAMPIONSHIP_HISTORY } from '../data/site';
@@ -10,16 +11,15 @@ const next = CHAMPIONSHIP_HISTORY.find((c) => c.year === year + 1);
 const recent = (c: { year: number }) => c.year >= 2024;
 ---
 <Base title="Section Championship" description="The annual Alabama State USPSA Championship: current match, host club, and results back to 2010.">
+  <PageHead title="Alabama State Championship" eyebrow="Level II · Annual">
+    <p class="lede">One member club hosts the Section Championship each year, chosen by vote of the Executive Committee. Division winners who are Alabama residents earn Section Champion titles (Bylaws Art. 10), and placement here is the primary factor in <a href="/nationals-slots/">Nationals slot</a> applications.</p>
+  </PageHead>
   <div class="container">
-    <div class="page-head">
-      <span class="eyebrow">Level II &middot; Annual</span>
-      <h1>Alabama State Championship</h1>
-      <p class="lede">One member club hosts the Section Championship each year, chosen by vote of the Executive Committee. Division winners who are Alabama residents earn Section Champion titles (Bylaws Art. 10), and placement here is the primary factor in <a href="/nationals-slots/">Nationals slot</a> applications.</p>
-    </div>
 
     <div class="grid grid-2">
       {current && (
-        <div class="card">
+        <div class="card dark">
+          <img src="/img/state-championship-logo.png" alt="" width="600" height="300" style="display:block;width:100%;max-width:360px;margin:-0.25rem 0 1rem" />
           <span class="eyebrow">{current.year}</span>
           <h3>{current.host || <Soon />}</h3>
           <p>{current.location}{current.dates ? ` · ${current.dates}` : ''}</p>

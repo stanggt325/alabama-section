@@ -1,13 +1,11 @@
 ---
+import PageHead from '../../components/PageHead.astro';
 import Base from '../../layouts/Base.astro';
 import GovNav from '../../components/GovNav.astro';
 ---
 <Base title="Elections" description="How and when the Alabama Section elects its Section Coordinator.">
+  <PageHead title="Elections" lede="The Section Coordinator is elected by the member clubs, one vote per club. USPSA requires an election at least every two years; the Alabama bylaws set a one-year term running 1 April to 31 March." />
   <div class="container">
-    <div class="page-head">
-      <h1>Elections</h1>
-      <p class="lede">The Section Coordinator is elected by the member clubs, one vote per club. USPSA requires an election at least every two years; the Alabama bylaws set a one-year term running 1 April to 31 March.</p>
-    </div>
     <GovNav />
 
     <div class="prose">

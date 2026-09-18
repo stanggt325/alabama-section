@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import PageHead from '../components/PageHead.astro';
 import Base from '../layouts/Base.astro';
 import EventRow from '../components/EventRow.astro';
 import { isUpcoming } from '../lib/dates';
@@ -10,11 +11,10 @@ const upcoming = all.filter((e) => isUpcoming(e.data.end ?? e.data.start, now));
 const past = all.filter((e) => !isUpcoming(e.data.end ?? e.data.start, now)).reverse();
 ---
 <Base title="Calendar" description="Section-level USPSA events in Alabama: the Section Championship, Executive Committee meetings, elections, deadlines, and NROI seminars.">
+  <PageHead title="Section calendar">
+    <p class="lede">Section-level dates only. Club monthly matches are registered and scored on PractiScore; check the <a href="/clubs/">club directory</a> for each club's page. Area 6 and national major matches are on <a href="https://uspsa.org/area6" rel="noopener" target="_blank">uspsa.org</a>.</p>
+  </PageHead>
   <div class="container">
-    <div class="page-head">
-      <h1>Section calendar</h1>
-      <p class="lede">Section-level dates only. Club monthly matches are registered and scored on PractiScore; check the <a href="/clubs/">club directory</a> for each club's page. Area 6 and national major matches are on <a href="https://uspsa.org/area6" rel="noopener" target="_blank">uspsa.org</a>.</p>
-    </div>
 
     <section class="section" style="padding-top:0">
       <h2>Upcoming</h2>

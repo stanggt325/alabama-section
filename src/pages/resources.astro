@@ -1,13 +1,11 @@
 ---
+import PageHead from '../components/PageHead.astro';
 import Base from '../layouts/Base.astro';
 import { USPSA_LINKS } from '../data/site';
 ---
 <Base title="Resources" description="New shooter guide, Range Officer certification, and USPSA reference links for Alabama shooters and club officers.">
+  <PageHead title="Resources" lede="For shooters, for club officers, and for anyone thinking about their first match." />
   <div class="container">
-    <div class="page-head">
-      <h1>Resources</h1>
-      <p class="lede">For shooters, for club officers, and for anyone thinking about their first match.</p>
-    </div>
 
     <div class="grid grid-2">
       <div class="card prose">
